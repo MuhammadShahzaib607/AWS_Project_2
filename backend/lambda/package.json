@@ -1,0 +1,13 @@
+{
+  "name": "modern-todo-lambda",
+  "version": "1.0.0",
+  "description": "Lambda functions for Modern Todo App",
+  "main": "handler.js",
+  "dependencies": {
+    "aws-sdk": "^2.1000.0",
+    "uuid": "^9.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TaskFlow</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">TaskFlow</div>
+            <div class="nav-actions">
+                <button id="notificationBtn" class="icon-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 1a7 7 0 0 0-7 7v3.5l-1 2.5h14l-1-2.5V8a7 7 0 0 0-7-7zm0 9.975c.95 0 1.7-.75 1.7-1.7v-3.3a5.7 5.7 0 0 0-1.7-4.05c-.1.2-.15.41-.15.61v3.3a1.7 1.7 0 0 0 1.7 1.7z"/>
+                    </svg>
+                </button>
+                <div class="user-dropdown">
+                    <button id="userProfileBtn" class="profile-btn">
+                        <img id="userAvatar" src="https://via.placeholder.com/40" alt="User">
+                        <span id="userName">John Doe</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M4.646 11.354l.646.646A1 1 0 0 0 6 13h4a1 1 0 0 0 .754-.246l1.5-1.5a.5.5 0 0 1 .707.708l-1.5 1.5a1 1 0 0 1-1.414 0l-1.5-1.5a.5.5 0 1 1 .707-.707z"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Profile</a>
+                        <a href="#" class="dropdown-item">Settings</a>
+                        <hr>
+                        <button id="logoutBtn" class="dropdown-item logout-btn">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3 class="section-title">Navigation</h3>
+                <nav class="nav-menu">
+                    <button class="nav-item active" data-section="all"><span class="nav-icon">✓</span> All Tasks</button>
+                    <button class="nav-item" data-section="today"><span class="nav-icon">📅</span> Today</button>
+                    <button class="nav-item" data-section="upcoming"><span class="nav-icon">⏰</span> Upcoming</button>
+                    <button class="nav-item" data-section="completed"><span class="nav-icon">✓</span> Completed</button>
+                </nav>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">Categories</h3>
+                <nav class="category-menu">
+                    <button class="category-item" data-category="personal">🏠 Personal</button>
+                    <button class="category-item" data-category="work">💼 Work</button>
+                    <button class="category-item" data-category="shopping">🛒 Shopping</button>
+                    <button class="category-item" data-category="health">💪 Health</button>
+                    <button class="category-item" data-category="finance">💰 Finance</button>
+                </nav>
+            </div>
+
+            <button class="sidebar-settings-btn" id="openSettings">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8.5 1a.5.5 0 0 1 .5.5v1.293l.646-.646a.5.5 0 1 1 .707.707L8.707 3.5H9.5a.5.5 0 0 1 0 1h-.593l-.646.646a.5.5 0 0 1-.707-.707L7.707 4.5H7a.5.5 0 0 1 0-1h.593L8.5 2.207V1.5a.5.5 0 0 1 .5-.5z"/>
+                    </svg>
+                Settings
+            </button>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div>
+                    <h2 class="welcome">Good morning, <span id="userDisplayName">John</span></h2>
+                    <p class="current-date" id="currentDate"></p>
+                </div>
+                <button id="addTodoBtn" class="btn btn-primary btn-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M14 13v-1a1 1 0 0 0-1-1H5.414l.707-.707a1 1 0 0 0-1.414-1.414l-2 2a1 1 0 0 0 0 1.414l2 2a1 1 0 0 0 1.414 0l.707-.707H13a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 1 1 0-2h11z"/>
+                    </svg>
+                    Add New Task
+                </button>
+            </header>
+
+            <section class="filters-section">
+                <div class="search-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.5-1.5l2.157 2.157a.5.5 0 0 0 .707-.707l-2.156-2.156zm-3.853 1.015a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search todos..." class="search-input">
+                    <select id="priorityFilter" class="filter-select">
+                        <option value="all">All Priorities</option>
+                        <option value="urgent">Urgent</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="todos-section">
+                <div id="loadingSkeleton" class="skeleton-loader">
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                </div>
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">📋</div>
+                    <h3>No todos yet</h3>
+                    <p>Create your first task to get started!</p>
+                </div>
+
+                <div id="todosContainer" class="todos-grid hidden">
+                    <!-- Todo cards will be rendered here -->
+                </div>
+            </section>
+
+            <section class="progress-section">
+                <div class="progress-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalTodos">0</span>
+                        <span class="stat-label">Total Todos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="completedCount">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="completionPercentage">0%</span>
+                        <span class="stat-label">Completion</span>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="stats-panel">
+                <h3>Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="todayCount">0</span>
+                        <span class="stat-label-small">Completed Today</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="overdueCount">0</span>
+                        <span class="stat-label-small">Overdue</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="upcomingCount">0</span>
+                        <span class="stat-label-small">Upcoming</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="activeCount">0</span>
+                        <span class="stat-label-small">Active</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div id="addTodoModal" class="modal hidden">
+        <div class="modal-backdrop" data-modal-backdrop></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Todo</h3>
+                <button class="close-btn" data-close-modal>&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" id="todoTitle" placeholder="Task Title *" required>
+                    <span class="error-message" id="todoTitleError"></span>
+                </div>
+                <div class="form-group">
+                    <textarea id="todoDescription" placeholder="Description (optional)" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <select id="todoPriority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="todoDueDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="todoTags" placeholder="Tags (comma separated)">
+                </div>
+                <button id="createTodoBtn" class="btn btn-primary">Create Task</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editTodoModal" class="modal hidden">
+        <div class="modal-backdrop" data-modal-backdrop></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Todo</h3>
+                <button class="close-btn" data-close-edit-modal>&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editTodoId">
+                <div class="form-group">
+                    <input type="text" id="editTodoTitle" placeholder="Task Title *" required>
+                    <span class="error-message" id="editTodoTitleError"></span>
+                </div>
+                <div class="form-group">
+                    <textarea id="editTodoDescription" placeholder="Description"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <select id="editTodoPriority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="editTodoDueDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="editTodoTags" placeholder="Tags (comma separated)">
+                </div>
+                <div class="form-row">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="editTodoCompleted">
+                        <span class="checkmark"></span>
+                        Mark as completed
+                    </label>
+                </div>
+                <button id="updateTodoBtn" class="btn btn-primary">Update Task</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-backdrop" data-modal-backdrop></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="close-btn" data-close-settings-modal>&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>Theme Settings</h4>
+                    <div class="theme-options">
+                        <button class="theme-btn active" data-theme="dark">Dark</button>
+                        <button class="theme-btn" data-theme="light">Light</button>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h4>Filter Options</h4>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="showCompleted" checked>
+                            Show completed tasks
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="showOverdue">
+                            Show overdue tasks in red
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@latest/dist/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/todo.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
