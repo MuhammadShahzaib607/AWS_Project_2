@@ -5,13 +5,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signupForm');
     const confirmationSection = document.getElementById('confirmationSection');
 
-    loginTab.addEventListener('click', function() {
-        loginTab.classList.add('active');
-        signupTab.classList.remove('active');
-        loginForm.classList.remove('hidden');
-        signupForm.classList.remove('hidden');
-        confirmationSection.classList.add('hidden');
-    });
+ loginTab.addEventListener('click', function() {
+    loginTab.classList.add('active');
+    signupTab.classList.remove('active');
+    loginForm.classList.remove('hidden');
+    signupForm.classList.add('hidden');     
+    confirmationSection.classList.add('hidden');
+});
+
+signupTab.addEventListener('click', function() {
+    signupTab.classList.add('active');
+    loginTab.classList.remove('active');
+    signupForm.classList.remove('hidden');
+    loginForm.classList.add('hidden');      
+    confirmationSection.classList.add('hidden');
+});
 
     signupTab.addEventListener('click', function() {
         signupTab.classList.add('active');

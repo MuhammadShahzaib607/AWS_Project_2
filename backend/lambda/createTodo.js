@@ -6,6 +6,14 @@ const TABLE_NAME = process.env.TABLE_NAME || 'modern-todos';
 
 const VALID_PRIORITIES = ['low', 'medium', 'high', 'urgent'];
 
+// Ye headers ab HAR response (success ho ya error) mein jayenge
+const CORS_HEADERS = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type,Authorization,X-Api-Key',
+    'Access-Control-Allow-Methods': 'OPTIONS,POST'
+};
+
 exports.handler = async (event) => {
     console.log('Event:', JSON.stringify(event, null, 2));
 
@@ -17,6 +25,7 @@ exports.handler = async (event) => {
         if (!userId) {
             return {
                 statusCode: 401,
+                headers: CORS_HEADERS,
                 body: JSON.stringify({ error: 'Unauthorized' })
             };
         }
@@ -24,6 +33,7 @@ exports.handler = async (event) => {
         if (!title || title.trim().length === 0) {
             return {
                 statusCode: 400,
+                headers: CORS_HEADERS,
                 body: JSON.stringify({ error: 'Title is required' })
             };
         }
@@ -31,6 +41,7 @@ exports.handler = async (event) => {
         if (title.length > 255) {
             return {
                 statusCode: 400,
+                headers: CORS_HEADERS,
                 body: JSON.stringify({ error: 'Title too long (max 255 characters)' })
             };
         }
@@ -38,6 +49,7 @@ exports.handler = async (event) => {
         if (!VALID_PRIORITIES.includes(priority)) {
             return {
                 statusCode: 400,
+                headers: CORS_HEADERS,
                 body: JSON.stringify({ error: `Invalid priority. Must be one of: ${VALID_PRIORITIES.join(', ')}` })
             };
         }
@@ -67,16 +79,14 @@ exports.handler = async (event) => {
 
         return {
             statusCode: 201,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
+            headers: CORS_HEADERS,
             body: JSON.stringify(item)
         };
     } catch (error) {
         console.error('Error:', error);
         return {
             statusCode: 500,
+            headers: CORS_HEADERS,
             body: JSON.stringify({ error: 'Internal server error', message: error.message })
         };
     }

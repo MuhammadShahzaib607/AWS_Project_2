@@ -588,6 +588,11 @@ hr {
     cursor: pointer;
 }
 
+.filter-select option {
+    background-color: var(--secondary-bg) !important;
+    color: var(--text-primary) !important;
+}
+
 .filter-select:focus {
     outline: none;
     border-color: var(--accent-cyan);
